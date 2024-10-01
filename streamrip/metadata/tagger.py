@@ -70,24 +70,24 @@ METADATA_TYPES = (
     "title",
     "artist",
     "album",
-    "albumartist",
-    "composer",
+    #"albumartist",
+    #"composer",
     "year",
-    "comment",
-    "description",
-    "purchase_date",
-    "grouping",
+    #"comment",
+    #"description",
+    #"purchase_date",
+    #"grouping",
     "genre",
     "lyrics",
-    "encoder",
-    "copyright",
-    "compilation",
+    #"encoder",
+    #"copyright",
+    #"compilation",
     "tracknumber",
-    "discnumber",
-    "tracktotal",
-    "disctotal",
-    "date",
-    "isrc",
+    #"discnumber",
+    #"tracktotal",
+    #"disctotal",
+    #"date",
+    #"isrc",
 )
 
 
@@ -129,13 +129,13 @@ class Container(Enum):
         for k, v in FLAC_KEY.items():
             tag = self._attr_from_meta(meta, k)
             if tag:
-                if k in {
-                    "tracknumber",
-                    "discnumber",
-                    "tracktotal",
-                    "disctotal",
-                }:
-                    tag = f"{int(tag):02}"
+                # if k in {
+                #     "tracknumber",
+                #     "discnumber",
+                #     "tracktotal",
+                #     "disctotal",
+                # }:
+                #     tag = f"{int(tag):02}"
 
                 out.append((v, str(tag)))
         return out
