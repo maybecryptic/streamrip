@@ -130,7 +130,11 @@ def downscale_image(input_image_path: str, max_dimension: int):
 
     """
     # Open the image
-    image = Image.open(input_image_path)
+    try:
+        image = Image.open(input_image_path)
+    except:
+        logger.warning(f"Album art image was not found")
+        return
 
     # Get the original width and height
     width, height = image.size
