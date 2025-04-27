@@ -250,6 +250,7 @@ async def tag_file(path: str, meta: TrackMetadata, cover_path: str | None):
         raise Exception(f"Invalid extension {ext}")
 
     audio = container.get_mutagen_class(path)
+    audio.clear()
     tags = container.get_tag_pairs(meta)
     logger.debug("Tagging with %s", tags)
     container.tag_audio(audio, tags)
