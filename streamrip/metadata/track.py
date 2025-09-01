@@ -53,14 +53,16 @@ class TrackMetadata:
         composer = typed(resp.get("composer", {}).get("name"), str | None)
         tracknumber = typed(resp.get("track_number", 1), int)
         discnumber = typed(resp.get("media_number", 1), int)
-        artist = typed(
-            safe_get(
-                resp,
-                "performer",
-                "name",
-            ),
-            str,
-        )
+
+        artists_data = resp.get("album", {}).get("artists", [])
+
+        main_artists = [a["name"] for a in artists_data if "main-artist" in a.get("roles", [])]
+        featured_artists = [a["name"] for a in artists_data if "featured-artist" in a.get("roles", [])]
+
+        artist = ", ".join(main_artists)
+        if featured_artists:
+            artist += " Ft. " + ", ".join(featured_artists)
+
         track_id = str(resp["id"])
         bit_depth = typed(resp.get("maximum_bit_depth"), int | None)
         sampling_rate = typed(resp.get("maximum_sampling_rate"), int | float | None)
