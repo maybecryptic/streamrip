@@ -18,7 +18,7 @@ from ..media import (
 
 logger = logging.getLogger("streamrip")
 URL_REGEX = re.compile(
-    r"https?://(?:www|open|play|listen)?\.?(qobuz|tidal|deezer)\.com?(?:(?:/(album|artist|track|playlist|video|label))|(?:\/[-\w]+?))+\/([-\w]+)",
+    r"https?://(?:www|open|play|listen|link)?\.?(qobuz|tidal|deezer)\.com(?:/[a-z]{2})?/(album|artist|track|playlist|video|label|s)/([A-Za-z0-9]+)",
 )
 SOUNDCLOUD_URL_REGEX = re.compile(r"https://soundcloud.com/[-\w:/]+")
 LASTFM_URL_REGEX = re.compile(r"https://www.last.fm/user/\w+/playlists/\w+")
@@ -138,11 +138,11 @@ class DeezerDynamicURL(URL):
     standard_link_re = re.compile(
         r"https://www\.deezer\.com/[a-z]{2}/(album|artist|playlist|track)/(\d+)"
     )
-    dynamic_link_re = re.compile(r"https://(?:deezer|dzr)\.page\.link/\w+")
+    dynamic_link_re = re.compile(r"https?://link\.deezer\.com/s/[A-Za-z0-9]+")
 
     @classmethod
     def from_str(cls, url: str) -> URL | None:
-        match = cls.dynamic_link_re.match(url)
+        match = cls.dynamic_link_re.match(url.strip())
         if match is None:
             return None
 

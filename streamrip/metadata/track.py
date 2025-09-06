@@ -97,7 +97,19 @@ class TrackMetadata:
         explicit = typed(resp["explicit_lyrics"], bool)
         work = None
         title = typed(resp["title"], str)
-        artist = typed(resp["artist"]["name"], str)
+
+        contributors = resp.get("contributors", [])
+
+        # Separate main and featured artists
+        main_artists = [c["name"] for c in contributors if c.get("role") == "Main"]
+        featured_artists = [c["name"] for c in contributors if c.get("role") == "Featured"]
+
+        # Format: Main1, Main2 Ft. Featured1, Featured2
+        if featured_artists:
+            artist = f"{', '.join(main_artists)} Ft. {', '.join(featured_artists)}"
+        else:
+            artist = ", ".join(main_artists)
+
         tracknumber = typed(resp["track_position"], int)
         discnumber = typed(resp["disk_number"], int)
         composer = None
