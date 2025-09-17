@@ -18,7 +18,7 @@ from ..media import (
 
 logger = logging.getLogger("streamrip")
 URL_REGEX = re.compile(
-    r"https?://(?:www|open|play|listen|link)?\.?(qobuz|tidal|deezer)\.com(?:/[a-z]{2})?/(album|artist|track|playlist|video|label|s)/([A-Za-z0-9]+)",
+    r"https?://(?:www\.|open\.|play\.|listen\.|link\.)?(qobuz|tidal|deezer)\.com(?:/[a-z]{2})?(?:/browse)?/(album|artist|track|playlist|video|label|s)/([A-Za-z0-9]+)(?:/u)?",
 )
 SOUNDCLOUD_URL_REGEX = re.compile(r"https://soundcloud.com/[-\w:/]+")
 LASTFM_URL_REGEX = re.compile(r"https://www.last.fm/user/\w+/playlists/\w+")
